@@ -21,21 +21,21 @@ def pixels_to_ascii(image):
     characters = "".join([ASCII_CHARS[pixel//25] for pixel in pixels])
     return (characters)
 
-def test(new_width=100):
+def test(new_width=100,path='Mina2.jpg'):
     #attempt to open image from user-iput
-    path = input("Enter a valid pathname to an image:\n")
+    # path = input("Enter a valid pathname to an image:\n")
+    imgpath = f'resources\imgs\{path}'
     try:
-        image = Image.open(f'resources\imgs\{path}')
+        image = Image.open(imgpath)
     except:
-        print(path, "is not a valid pathname to an image")
+        print(imgpath, "is not a valid pathname to an image")
     #convert image to ASCII
-    new_image_data = pixels_to_ascii(grayify(resize_image(image)))
+    new_image_data = pixels_to_ascii(grayify(resize_image(image, new_width)))
 
     #format
     pixel_count = len(new_image_data)
     ascii_image = "\n".join(new_image_data[i:(i+new_width)] for i in range(0,pixel_count,new_width))
 
-    #print result
-    print(ascii_image)
-
-test()
+    # #print result
+    # print(ascii_image)
+    return ascii_image
